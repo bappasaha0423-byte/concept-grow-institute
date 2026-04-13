@@ -1,0 +1,249 @@
+// Version: 1.0.0
+type AnnouncementId__365153885 = Nat;
+type AnnouncementId__675324675 = AnnouncementId__365153885;
+type Announcement__160704614 =
+  {
+    var createdAt : Timestamp__327008783;
+    createdBy : UserId__505920711;
+    id : AnnouncementId__675324675;
+    var message : Text;
+    var title : Text
+  };
+type AssignmentId__162244222 = Nat;
+type AssignmentId__365072893 = AssignmentId__162244222;
+type Assignment__982879838 =
+  {
+    var courseId : ?CourseId__510640414;
+    var createdAt : Timestamp__983666785;
+    createdBy : UserId__851957353;
+    var description : Text;
+    var dueDate : ?Timestamp__983666785;
+    id : AssignmentId__365072893;
+    var maxPoints : Nat;
+    var title : Text
+  };
+type CourseId__253647179 = CourseId__927523888;
+type CourseId__419863443 = CourseId__927523888;
+type CourseId__510640414 = CourseId__927523888;
+type CourseId__793587 = CourseId__927523888;
+type CourseId__927523888 = Nat;
+type Course__321233390 =
+  {
+    var category : Text;
+    var createdAt : Timestamp__339344712;
+    createdBy : UserId__561200988;
+    var description : Text;
+    id : CourseId__793587;
+    var published : Bool;
+    var title : Text
+  };
+type Data__159895909<T> = {var count : Nat__490723111; elements : [var ?T]};
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type Enrollment__24904575 =
+  {
+    courseId : CourseId__793587;
+    enrolledAt : Timestamp__339344712;
+    studentId : UserId__561200988
+  };
+type Internal__667636161<T> =
+  {children : [var ?Node__92254746<T>]; data : Data__159895909<T>};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__520550824<T> = {data : Data__159895909<T>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type LessonCompletion__489766180 =
+  {
+    completedAt : Timestamp__339344712;
+    lessonId : LessonId__280124954;
+    studentId : UserId__561200988
+  };
+type LessonId__21783266 = Nat;
+type LessonId__280124954 = LessonId__21783266;
+type Lesson__403778655 =
+  {
+    var content : Text;
+    courseId : CourseId__793587;
+    var createdAt : Timestamp__339344712;
+    id : LessonId__280124954;
+    var order : Nat;
+    var title : Text
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type Node__92254746<T> =
+  {#internal : Internal__667636161<T>; #leaf : Leaf__520550824<T>};
+type NoteId__167160349 = Nat;
+type NoteId__94891047 = NoteId__167160349;
+type Note__1063160515 =
+  {
+    var content : Text;
+    var courseId : ?CourseId__253647179;
+    var createdAt : Timestamp__354304526;
+    createdBy : UserId__26715801;
+    id : NoteId__94891047;
+    var title : Text;
+    var updatedAt : Timestamp__354304526
+  };
+type QuestionId__363905317 = QuestionId__77764146;
+type QuestionId__77764146 = Nat;
+type Question__322196058 =
+  {
+    var answerIndex : Nat;
+    id : QuestionId__363905317;
+    var options : [Text];
+    quizId : QuizId__775050758;
+    var text : Text
+  };
+type QuizAttempt__143628499 =
+  {
+    answers : [Nat];
+    id : Nat;
+    quizId : QuizId__775050758;
+    score : Nat;
+    studentId : UserId__250119333;
+    submittedAt : Timestamp__336048791;
+    total : Nat
+  };
+type QuizId__438791917 = Nat;
+type QuizId__775050758 = QuizId__438791917;
+type Quiz__109335985 =
+  {
+    courseId : CourseId__419863443;
+    var createdAt : Timestamp__336048791;
+    createdBy : UserId__250119333;
+    var description : Text;
+    id : QuizId__775050758;
+    var title : Text
+  };
+type Role__300349085 = {#admin; #student};
+type Role__717780527 = Role__300349085;
+type ScheduleId__456068138 = Nat;
+type ScheduleSlot__253977599 =
+  {
+    var className : Text;
+    createdAt : Timestamp__301639476;
+    var day : Text;
+    id : ScheduleId__456068138;
+    var isActive : Bool;
+    var subject : Text;
+    var teacher : Text;
+    var timeRange : Text;
+    var timeSlot : Text
+  };
+type Set__532252804<T> = Set__710576254<T>;
+type Set__710576254<T> =
+  {var root : Node__92254746<T>; var size : Nat__490723111};
+type Timestamp__301639476 = Int;
+type Timestamp__327008783 = Timestamp__301639476;
+type Timestamp__336048791 = Timestamp__301639476;
+type Timestamp__339344712 = Timestamp__301639476;
+type Timestamp__354304526 = Timestamp__301639476;
+type Timestamp__983666785 = Timestamp__301639476;
+type UserId__1043627770 = UserId__158757552;
+type UserId__158757552 = Principal;
+type UserId__250119333 = UserId__158757552;
+type UserId__26715801 = UserId__158757552;
+type UserId__505920711 = UserId__158757552;
+type UserId__561200988 = UserId__158757552;
+type UserId__851957353 = UserId__158757552;
+type UserProfile__277265826 =
+  {
+    var createdAt : Timestamp__301639476;
+    id : UserId__1043627770;
+    var name : Text;
+    var role : Role__717780527
+  };
+actor {
+  stable _userIdCounter : {var v : Nat};
+  stable announcements :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Announcement__160704614]];
+      var elementIndex : Nat__490723111
+    };
+  stable assignments :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Assignment__982879838]];
+      var elementIndex : Nat__490723111
+    };
+  stable attempts :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?QuizAttempt__143628499]];
+      var elementIndex : Nat__490723111
+    };
+  stable completions :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?LessonCompletion__489766180]];
+      var elementIndex : Nat__490723111
+    };
+  stable courses :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Course__321233390]];
+      var elementIndex : Nat__490723111
+    };
+  stable enrollments :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Enrollment__24904575]];
+      var elementIndex : Nat__490723111
+    };
+  stable lessons :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Lesson__403778655]];
+      var elementIndex : Nat__490723111
+    };
+  stable nextAnnouncementId : {var v : Nat};
+  stable nextAssignmentId : {var v : Nat};
+  stable nextAttemptId : {var v : Nat};
+  stable nextCourseId : {var v : Nat};
+  stable nextLessonId : {var v : Nat};
+  stable nextNoteId : {var v : Nat};
+  stable nextQuestionId : {var v : Nat};
+  stable nextQuizId : {var v : Nat};
+  stable nextSlotId : {var v : Nat};
+  stable notes :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Note__1063160515]];
+      var elementIndex : Nat__490723111
+    };
+  stable questions :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Question__322196058]];
+      var elementIndex : Nat__490723111
+    };
+  stable quizzes :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Quiz__109335985]];
+      var elementIndex : Nat__490723111
+    };
+  stable readMap :
+    {
+      var root :
+        Node__46230540<UserId__158757552,
+                        Set__532252804<AnnouncementId__365153885>>;
+      var size : Nat__490723111
+    };
+  stable scheduleSlots :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ScheduleSlot__253977599]];
+      var elementIndex : Nat__490723111
+    };
+  stable users :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?UserProfile__277265826]];
+      var elementIndex : Nat__490723111
+    }
+};

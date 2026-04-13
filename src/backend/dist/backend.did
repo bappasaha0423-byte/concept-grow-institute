@@ -1,0 +1,267 @@
+type UserProfilePublic = 
+ record {
+   createdAt: Timestamp;
+   id: UserId;
+   name: text;
+   role: Role;
+ };
+type UserId = principal;
+type Timestamp = int;
+type StudentPerformance = 
+ record {
+   averageQuizScore: float64;
+   completedLessons: nat;
+   quizzesTaken: nat;
+   studentId: UserId;
+   studentName: text;
+   totalEnrollments: nat;
+ };
+type ScheduleSlotPublic = 
+ record {
+   className: text;
+   createdAt: Timestamp;
+   day: text;
+   id: ScheduleId;
+   isActive: bool;
+   subject: text;
+   teacher: text;
+   timeRange: text;
+   timeSlot: text;
+ };
+type ScheduleInput = 
+ record {
+   className: text;
+   day: text;
+   subject: text;
+   teacher: text;
+   timeRange: text;
+   timeSlot: text;
+ };
+type ScheduleId = nat;
+type Role = 
+ variant {
+   admin;
+   student;
+ };
+type Result_9 = 
+ variant {
+   err: text;
+   ok: CoursePublic;
+ };
+type Result_8 = 
+ variant {
+   err: text;
+   ok: LessonPublic;
+ };
+type Result_7 = 
+ variant {
+   err: text;
+   ok: NotePublic;
+ };
+type Result_6 = 
+ variant {
+   err: text;
+   ok: QuestionPublic;
+ };
+type Result_5 = 
+ variant {
+   err: text;
+   ok: QuizPublic;
+ };
+type Result_4 = 
+ variant {
+   err: text;
+   ok: ScheduleSlotPublic;
+ };
+type Result_3 = 
+ variant {
+   err: text;
+   ok: vec QuestionWithAnswer;
+ };
+type Result_2 = 
+ variant {
+   err: text;
+   ok: UserProfilePublic;
+ };
+type Result_11 = 
+ variant {
+   err: text;
+   ok: AnnouncementPublic;
+ };
+type Result_10 = 
+ variant {
+   err: text;
+   ok: AssignmentPublic;
+ };
+type Result_1 = 
+ variant {
+   err: text;
+   ok: QuizAttempt;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok: bool;
+ };
+type QuizPublic = 
+ record {
+   courseId: CourseId;
+   createdAt: Timestamp;
+   createdBy: UserId;
+   description: text;
+   id: QuizId;
+   title: text;
+ };
+type QuizId = nat;
+type QuizAttempt = 
+ record {
+   answers: vec nat;
+   id: nat;
+   quizId: QuizId;
+   score: nat;
+   studentId: UserId;
+   submittedAt: Timestamp;
+   total: nat;
+ };
+type QuestionWithAnswer = 
+ record {
+   answerIndex: nat;
+   id: QuestionId;
+   options: vec text;
+   quizId: QuizId;
+   "text": text;
+ };
+type QuestionPublic = 
+ record {
+   id: QuestionId;
+   options: vec text;
+   quizId: QuizId;
+   "text": text;
+ };
+type QuestionId = nat;
+type NotePublic = 
+ record {
+   content: text;
+   courseId: opt CourseId;
+   createdAt: Timestamp;
+   createdBy: UserId;
+   id: NoteId;
+   title: text;
+   updatedAt: Timestamp;
+ };
+type NoteId = nat;
+type LessonPublic = 
+ record {
+   content: text;
+   courseId: CourseId;
+   createdAt: Timestamp;
+   id: LessonId;
+   order: nat;
+   title: text;
+ };
+type LessonId = nat;
+type CoursePublic = 
+ record {
+   category: text;
+   createdAt: Timestamp;
+   createdBy: UserId;
+   description: text;
+   id: CourseId;
+   published: bool;
+   title: text;
+ };
+type CourseId = nat;
+type AssignmentPublic = 
+ record {
+   courseId: opt CourseId;
+   createdAt: Timestamp;
+   createdBy: UserId;
+   description: text;
+   dueDate: opt Timestamp;
+   id: AssignmentId;
+   maxPoints: nat;
+   title: text;
+ };
+type AssignmentId = nat;
+type AnnouncementPublic = 
+ record {
+   createdAt: Timestamp;
+   createdBy: UserId;
+   id: AnnouncementId;
+   isRead: bool;
+   message: text;
+   title: text;
+ };
+type AnnouncementId = nat;
+service : {
+  createAnnouncement: (title: text, message: text) -> (Result_11);
+  createAssignment: (courseId: opt CourseId, title: text, description: 
+   text, dueDate: opt Timestamp, maxPoints: nat) -> (Result_10);
+  createCourse: (title: text, description: text, category: text) ->
+   (Result_9);
+  createLesson: (courseId: CourseId, title: text, content: text, order:
+   nat) -> (Result_8);
+  createNote: (courseId: opt CourseId, title: text, content: text) ->
+   (Result_7);
+  createQuestion: (quizId: QuizId, "text": text, options: vec text,
+   answerIndex: nat) -> (Result_6);
+  createQuiz: (courseId: CourseId, title: text, description: text) ->
+   (Result_5);
+  createScheduleSlot: (input: ScheduleInput) -> (Result_4);
+  deleteAnnouncement: (id: AnnouncementId) -> (Result);
+  deleteAssignment: (id: AssignmentId) -> (Result);
+  deleteCourse: (id: CourseId) -> (Result);
+  deleteLesson: (id: LessonId) -> (Result);
+  deleteNote: (id: NoteId) -> (Result);
+  deleteQuestion: (id: QuestionId) -> (Result);
+  deleteQuiz: (id: QuizId) -> (Result);
+  deleteScheduleSlot: (id: ScheduleId) -> (Result);
+  enrollInCourse: (courseId: CourseId) -> (Result);
+  getAdminStats: () ->
+   (record {
+      totalEnrollments: nat;
+      totalStudents: nat;
+    }) query;
+  getAssignment: (id: AssignmentId) -> (opt AssignmentPublic) query;
+  getCourse: (id: CourseId) -> (opt CoursePublic) query;
+  getLesson: (id: LessonId) -> (opt LessonPublic) query;
+  getMyAttempts: (quizId: opt QuizId) -> (vec QuizAttempt) query;
+  getMyCompletedLessons: () -> (vec LessonId) query;
+  getMyEnrollments: () -> (vec CourseId) query;
+  getMyPerformance: () -> (opt StudentPerformance) query;
+  getMyProfile: () -> (opt UserProfilePublic) query;
+  getNote: (id: NoteId) -> (opt NotePublic) query;
+  getQuiz: (id: QuizId) -> (opt QuizPublic) query;
+  listAnnouncements: () -> (vec AnnouncementPublic) query;
+  listAssignments: (courseId: opt CourseId) -> (vec AssignmentPublic) query;
+  listCourses: () -> (vec CoursePublic) query;
+  listLessons: (courseId: CourseId) -> (vec LessonPublic) query;
+  listNotes: (courseId: opt CourseId) -> (vec NotePublic) query;
+  listQuestions: (quizId: QuizId) -> (vec QuestionPublic) query;
+  listQuestionsWithAnswers: (quizId: QuizId) -> (Result_3);
+  listQuizzes: (courseId: CourseId) -> (vec QuizPublic) query;
+  listScheduleSlots: () -> (vec ScheduleSlotPublic) query;
+  listScheduleSlotsByClass: (className: text) ->
+   (vec ScheduleSlotPublic) query;
+  listStudentPerformances: () -> (vec StudentPerformance) query;
+  listUsers: () -> (vec UserProfilePublic) query;
+  markAnnouncementRead: (id: AnnouncementId) -> (Result);
+  markLessonComplete: (lessonId: LessonId) -> (Result);
+  register: (name: text) -> (Result_2);
+  registerAsAdmin: (name: text) -> (Result_2);
+  submitQuizAttempt: (quizId: QuizId, answers: vec nat) -> (Result_1);
+  updateAnnouncement: (id: AnnouncementId, title: opt text, message:
+   opt text) -> (Result);
+  updateAssignment: (id: AssignmentId, title: opt text, description:
+   opt text, dueDate: opt Timestamp, maxPoints: opt nat) -> (Result);
+  updateCourse: (id: CourseId, title: opt text, description: opt text,
+   category: opt text, published: opt bool) -> (Result);
+  updateLesson: (id: LessonId, title: opt text, content: opt text, order:
+   opt nat) -> (Result);
+  updateNote: (id: NoteId, title: opt text, content: opt text) -> (Result);
+  updateQuestion: (id: QuestionId, "text": opt text, options: opt vec text,
+   answerIndex: opt nat) -> (Result);
+  updateQuiz: (id: QuizId, title: opt text, description: opt text) ->
+   (Result);
+  updateScheduleSlot: (id: ScheduleId, input: ScheduleInput) -> (Result);
+}

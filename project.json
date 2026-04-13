@@ -1,0 +1,26 @@
+{
+  "overview": "Concept Grow Institute is a comprehensive study app for Indian students. Admins can create and manage courses, quizzes, notes, and assignments, as well as manage student accounts, track performance, and send announcements. Students can browse courses, view lessons, take quizzes, see their scores, and receive announcements.",
+  "features": [
+    "Role-based access: Admin and Student roles with protected routes",
+    "Admin content management: courses, lessons, quizzes, notes, assignments",
+    "Student course browsing, lesson viewing, and enrollment",
+    "Quiz-taking with instant scoring and history tracking",
+    "Admin student management: view, search, deactivate students",
+    "Analytics dashboard for student performance tracking",
+    "Admin announcements with student notification center",
+    "Student profile with progress summary and score trends"
+  ],
+  "category": "education",
+  "tags": [
+    "education",
+    "study",
+    "india",
+    "e-learning",
+    "courses",
+    "quizzes",
+    "admin",
+    "student",
+    "lms"
+  ],
+  "last_updated": "2026-04-12T18:14:28.090Z"
+}
